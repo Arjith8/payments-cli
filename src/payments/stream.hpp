@@ -67,10 +67,6 @@ class MockStream final : public IRequestSource {
   PaymentMethod next_method();
   std::int64_t next_amount();
 
- private:
-  PaymentMethod next_method();
-  std::int64_t next_amount();
-
   StreamConfig config_;
   std::mt19937 rng_;
   std::discrete_distribution<std::size_t> method_distribution_;
