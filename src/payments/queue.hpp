@@ -8,17 +8,11 @@
 
 namespace payments {
 
-/// A minimal thread-safe blocking queue.
-///
-/// Producers push; consumers pop and block until either an element is
-/// available or the producer has closed the queue. This is the spine of the
-/// mock stream: the generator produces on one thread, workers consume on
-/// theirs. Kept generic so the same queue later carries confirmation messages
-/// to the message sender as well.
+/// Thread-safe blocking queue: producers push, consumers pop and block until
+/// an element is available or the queue is closed and drained.
 template <typename T>
 class BlockingQueue {
  public:
-  /// Enqueue one element. O(1).
   void push(T value) {
     {
       std::lock_guard lock(mutex_);
@@ -27,8 +21,7 @@ class BlockingQueue {
     ready_.notify_one();
   }
 
-  /// Dequeue one element, blocking while the queue is empty.
-  /// Returns std::nullopt once the queue is closed and drained.
+  /// Blocks while empty; nullopt once closed and drained.
   std::optional<T> pop() {
     std::unique_lock lock(mutex_);
     ready_.wait(lock, [this] { return !items_.empty() || closed_; });
@@ -38,8 +31,7 @@ class BlockingQueue {
     return value;
   }
 
-  /// Close the queue: wake all waiting consumers and make pop() return
-  /// nullopt after draining whatever is left. Idempotent.
+  /// Wake all consumers; drainable pop()s keep delivering, then nullopt.
   void close() {
     {
       std::lock_guard lock(mutex_);
@@ -48,7 +40,6 @@ class BlockingQueue {
     ready_.notify_all();
   }
 
-  /// Non-blocking snapshot count, mostly for tests and stats.
   std::size_t size() const {
     std::lock_guard lock(mutex_);
     return items_.size();

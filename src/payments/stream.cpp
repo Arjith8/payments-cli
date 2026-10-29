@@ -82,7 +82,6 @@ std::int64_t MockStream::next_amount() {
 
 void MockStream::run(BlockingQueue<PaymentRequest>& sink, std::uint64_t count,
                      bool close_sink) {
-  // Target inter-request delay; zero when rate_limit <= 0.
   const auto tick = std::chrono::duration_cast<std::chrono::microseconds>(
       std::chrono::duration<double>(
           config_.requests_per_second > 0 ? 1.0 / config_.requests_per_second
@@ -104,8 +103,7 @@ void MockStream::start_async(BlockingQueue<PaymentRequest>& sink,
   if (rate_limit > 0) {
     config_.requests_per_second = static_cast<double>(rate_limit);
   }
-  // Detached by design: the stream outlives any single consumer and stops
-  // through stop() / queue close rather than a join.
+  // Detached by design: stops via stop() / queue close, never joined.
   std::thread([this, &sink]() mutable {
     run(sink, std::numeric_limits<std::uint64_t>::max(), /*close_sink=*/false);
     sink.close();
