@@ -14,7 +14,9 @@ threaded performance statistics.
     traffic generator (deterministic seeds, jittered rate, weighted method
     mix, cooperative stop, detached-thread producer via `start_async`)
 - [ ] Phase 2 — Customer `DB` (valid payer/receiver lookup)
-- [ ] Phase 3 — Banking partners (`SintaBank`, `RoRy`, ...) with confirmation
+- [x] Phase 3 — Banking partners with confirmation
+      (`partner.hpp`, `banks.hpp`: `IBankingPartner`, `BankingPartner` base,
+      `SintaBank` / `RoRy` policies, method-aware `PartnerRouter`)
 - [ ] Phase 4 — Transaction engine + message-sender queue (interface only)
 - [ ] Phase 5 — `payments-cli`: interactive transactions + synthetic traffic
 - [ ] Phase 6 — Threaded worker pool vs single-threaded flow throughput/latency stats
