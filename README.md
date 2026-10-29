@@ -1,82 +1,127 @@
 # payments_handler
 
-A C++20 payments microservice: ingest payment requests, validate payers against
-a customer database, execute transactions through imaginary banking partners,
-and emit confirmations into an outbound message queue — with multi/single-
-threaded performance statistics.
+A C++20 payments microservice: ingest payment requests, validate the payer and
+payee against a customer registry, execute the transaction through simulated
+banking partners, and emit confirmations into an outbound message queue —
+with benchmarked single-threaded vs multi-threaded throughput and latency
+statistics.
 
-## Status / Roadmap
+## Features
 
-- [x] **Phase 1 — Mock stream creator** (`src/payments/`)
-  - `types.hpp` — `PaymentRequest` model + JSON wire (de)serialisation
-  - `queue.hpp` — generic thread-safe `BlockingQueue<T>`
-  - `stream.hpp` — `IRequestSource` interface + `MockStream` synthetic
-    traffic generator (deterministic seeds, jittered rate, weighted method
-    mix, cooperative stop, detached-thread producer via `start_async`)
-- [x] Phase 2 — Customer `DB` (valid payer/receiver lookup, balances)
-- [x] Phase 3 — Banking partners with confirmation
-      (`partner.hpp`, `banks.hpp`: `IBankingPartner`, `BankingPartner` base,
-      `SintaBank` / `RoRy` policies, method-aware `PartnerRouter`)
-- [x] Phase 4 — Transaction engine + message sender queue
-      (`processor.hpp`: `PaymentProcessor` full request flow;
-      `reply.hpp`: statuses + JSON replies; `sender.hpp`: `MessageSender`
-      outbound queue, delivery logic intentionally out of scope)
-- [x] Phase 5 — `payments-cli`: interactive transactions + synthetic traffic
-      (`runtime.hpp`: assembles DB/stream/workers/sender, foreground
-      `submit()` runs next to the detached generator; commands: `pay`,
-      `customers`, `rate`, `stop`, `stats`, `quit`)
-- [x] Phase 6 — Single vs multi-threaded throughput/latency stats
-      (`payments-bench`: identical seeded workload per run, per-request
-      latency percentiles, ledger consistency)
-- [x] Phase 7 — Shard-ready account storage
-      (`store.hpp`: `AccountStore` interface the processor depends on;
-      `sharded.hpp`: `ShardedDB` hash-partitioned over per-shard `DB`s;
-      `--shards` in CLI and bench)
+- **Ingestion stream** — deterministic, seeded synthetic traffic generator
+  (jittered rate limiting, weighted payment-method mix, cooperative stop),
+  feeding a thread-safe blocking queue
+- **Account store** — mutex-guarded registry with balance validation,
+  atomic debit/credit; monolithic or hash-sharded with a one-line switch
+- **Banking partners** — `IBankingPartner` interface with `SintaBank` /
+  `RoRy` policy implementations (method restrictions, amount ceilings,
+  failure rates) and a method-aware router
+- **Transaction engine** — validate → partner confirmation → settle; every
+  request produces a JSON reply posted to the outbound sender queue
+- **Interactive CLI** — fund transfers from the terminal while a detached
+  thread keeps synthetic traffic flowing
+- **Benchmarks** — identical seeded workload across worker counts and shard
+  counts; mean/p50/p95/p99/max latency and req/s per configuration
+- **Unit tested** — 8 doctest suites (one per component, including
+  concurrency), wired into `ctest`
 
-## Dependencies
+## Architecture
 
-Deliberately minimal — two vendored third-party libraries fetched by CMake
-`FetchContent` at configure time:
+```
+                       ┌────────────────────────────────────────────────┐
+ synthetic traffic ──▶ │ BlockingQueue<PaymentRequest> ─▶ workers (K)   │
+ (MockStream, detached)│                                      │         │
+                       │                          AccountStore │ DB /    │
+                       │                          exists,     │ ShardedDB
+   manual `pay` ──────▶│  submit() ──▶ processor  try_debit   │         │
+                       │                │         credit      ▼         │
+                       │                ▼                               │
+                       │        PartnerRouter ─▶ SintaBank / RoRy       │
+                       │                │ confirmations                 │
+                       │                ▼                               │
+                       │        MessageSender (outbound JSON replies)   │
+                       └────────────────────────────────────────────────┘
+```
 
-| Dependency | Purpose |
+Key submodules, in dependency order:
+
+| Module | Role |
 |---|---|
-| [nlohmann/json](https://github.com/nlohmann/json) 3.11.3 | JSON wire format |
-| [doctest](https://github.com/doctest/doctest) 2.4.12 | Unit test framework |
+| `types.hpp` | `PaymentRequest` model + JSON wire (de)serialisation |
+| `queue.hpp` | generic thread-safe `BlockingQueue<T>` (blocking pop, close-and-drain) |
+| `stream.hpp` | `IRequestSource` + `MockStream` generator |
+| `store.hpp`, `db.hpp` | `AccountStore` interface + mono `DB` (validated registry, atomic `try_debit`) |
+| `sharded.hpp` | `ShardedDB`: stable hash partitioning over per-shard `DB`s |
+| `partner.hpp`, `banks.hpp` | partner interface, seeded policy partners, `PartnerRouter` |
+| `reply.hpp`, `sender.hpp` | reply model + outbound `MessageSender` queue |
+| `processor.hpp` | `PaymentProcessor`: the full request flow |
+| `runtime.hpp` | assembles the pipeline and owns its threads |
 
-## Build & test
+The processor depends only on the `AccountStore` and `IBankingPartner`
+interfaces — monolithic vs sharded storage (or a future network-backed
+store) is purely a construction-time choice.
+
+## Requirements
+
+- CMake ≥ 3.20
+- A C++20 compiler (GCC 13+, tested with GCC 16)
+- Network access on first configure (FetchContent downloads two headers-only
+  libraries; nothing else)
+
+## Quick start
 
 ```bash
+git clone <repo-url> && cd payment_handler
+
+# build (defaults to Release)
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
+
+# run the unit test suite (8 suites)
 ctest --test-dir build --output-on-failure
 ```
 
-## CLI
+### Interactive CLI
 
-```bash
+```
 ./build/payments-cli --workers 4 --rate 50           # 4 workers, 50 synthetic req/s
 ./build/payments-cli --customers 25 --seed 42        # bigger registry, replayable stream
 ./build/payments-cli --shards 8 --workers 8          # partitioned store
 ```
 
-Interactive commands: `pay <payer> <payee> <amount> <method>`,
-`customers`, `rate <rps>` (0 = stop stream), `stats`, `quit`.
-Synthetic requests post their JSON replies continuously; `quit` drains.
+Flags: `--workers`, `--rate`, `--customers`, `--shards`, `--seed`,
+`--customers-file <path>` (JSON array of customers).
+
+Interactive commands:
+
+| Command | Effect |
+|---|---|
+| `pay <payer> <payee> <amount> <method>` | funds a transfer synchronously and prints the JSON reply |
+| `customers` | registry with balances |
+| `rate <rps>` | turns the synthetic stream on at that rate (0 = off) |
+| `stats` | processed / approved / rejected / failed counters |
+| `quit` | drains the pipeline and exits |
+
+Synthetic requests post their JSON replies continuously; e.g.
+
+```json
+{"confirm_ref":"RoRy-1-ff7f9ed8fe","partner":"RoRy","reason":"","request_id":"manual-1","status":"approved"}
+```
 
 ## Benchmark
 
-`payments-bench` drives the *same* seeded workload through either a single
-threaded loop or K competing worker threads (Debug/unoptimized build unless
-you rebuild with Release):
+`payments-bench` drives the *same* seeded workload through either a
+single-threaded loop or K competing worker threads. The numbers below are
+from the **Debug (unoptimized) build** — compare Debug builds to isolate the
+concurrency story from the optimizer's:
 
 ```bash
 cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
-cmake --build build-debug -jK
-./build-debug/payments-bench -n 20000        # --seed, --customers, -n, --shards
+cmake --build build-debug -j
+./build-debug/payments-bench -n 20000 --shards 8
 ```
 
-Example results (Debug build, 20 000 requests, 12 customers, seed 42,
-8-core machine):
+Results (20 000 requests, 12 customers, seed 42, 8-core machine):
 
 ```
 workload: 20000 requests, 12 customers, shards=1, seed=42
@@ -96,24 +141,45 @@ threads         req/s     mean_us    p50_us    p95_us    p99_us      max_us   ap
        8         38532       154.2      94.1     443.0     782.2      4064.6      18029       1971
 ```
 
-Reading it: approve/reject counts are identical across all runs (deterministic
-workload) so the comparison is apples-to-apples.
+Reading it (approve/reject counts are identical in every run — deterministic
+workload — so the comparison is apples-to-apples):
 
-- **1 shard**: throughput flat while latency multiplies with workers — one
-  store-wide mutex serialises the hot path.
-- **8 shards**: 8 workers now sustain 38.5k req/s (+63% over 1 thread) and
-  mean latency drops from 304µs to 154µs: accounts hash across independent
-  per-shard mutexes, so most requests stop contending with each other. The
-  remaining ceiling is the partner lock (one shared RNG per partner instance).
+- **1 shard**: throughput flat while latency multiplies with worker count;
+  a store-wide mutex serialises the hot path, so threading adds contention,
+  not capacity (mean latency 41 µs → 304 µs at 8 threads).
+- **8 shards**: 8 workers sustain **38.5k req/s (+63% over 1 thread)** and
+  mean latency drops from 304 µs to 154 µs — accounts hash across
+  independent per-shard mutexes, so requests stop contending. The remaining
+  ceiling is the per-partner RNG lock.
 
-`--shards` chooses the partitioning at construction; the processor only sees
-the `AccountStore` interface.
+## Testing
+
+```bash
+ctest --test-dir [build dir] --output-on-failure   # or run each ./build-debug/test_* binary
+```
+
+Eight suites: stream (`deterministic replay, rate/mix, stop`), queue
+(FIFO, blocking, close semantics), types (JSON round-trips), DB (validation,
+balance edges, concurrent debit), banks (policies, seeded determinism,
+routing), processor (full flow, every failure branch, 4-thread ledger
+consistency), runtime (counters, synthetic on/off), sharded (routing
+stability, cross-shard balance math, drop-in).
+
+## Dependencies
+
+Deliberately minimal — two header-only libraries fetched by CMake
+`FetchContent` at configure time:
+
+| Dependency | Purpose |
+|---|---|
+| [nlohmann/json](https://github.com/nlohmann/json) 3.11.3 | JSON wire format |
+| [doctest](https://github.com/doctest/doctest) 2.4.12 | Unit test framework |
 
 ## Layout
 
 ```
-src/payments/   core library headers/sources
+src/payments/   core library (store, stream, banks, processor, runtime)
 apps/cli/       payments-cli
 apps/bench/     payments-bench
-tests/          doctest unit tests, one suite per component
+tests/          doctest suites, one per component
 ```
