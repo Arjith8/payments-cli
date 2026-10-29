@@ -16,8 +16,10 @@ TEST_CASE("submit settles interactively and counters track") {
   CHECK(stats.processed == 1);
   CHECK(stats.approved == 1);
   CHECK(stats.failed == 0);
-  CHECK(runtime.pending_replies() == 1);
-  CHECK(runtime.db().find("cust_0")->balance_cents == 1'000'000 - 1000);
+  CHECK(runtime.store().find("cust_0")->balance_cents == 1'000'000 - 1000);
+
+  runtime.stop();  // deliverer drains the queued reply on close
+  CHECK(runtime.pending_replies() == 0);
 }
 
 TEST_CASE("synthetic traffic flows through workers into stats") {

@@ -1,4 +1,5 @@
 #include "payments/processor.hpp"
+#include "payments/db.hpp"
 
 #include <doctest/doctest.h>
 

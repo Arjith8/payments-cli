@@ -14,6 +14,8 @@ add_test([=[test_queue]=] "/home/arjith/dev/northpole/payment_handler/build-debu
 set_tests_properties([=[test_queue]=] PROPERTIES  _BACKTRACE_TRIPLES "/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;47;add_test;/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;0;")
 add_test([=[test_runtime]=] "/home/arjith/dev/northpole/payment_handler/build-debug/test_runtime")
 set_tests_properties([=[test_runtime]=] PROPERTIES  _BACKTRACE_TRIPLES "/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;47;add_test;/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;0;")
+add_test([=[test_sharded]=] "/home/arjith/dev/northpole/payment_handler/build-debug/test_sharded")
+set_tests_properties([=[test_sharded]=] PROPERTIES  _BACKTRACE_TRIPLES "/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;47;add_test;/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;0;")
 add_test([=[test_stream]=] "/home/arjith/dev/northpole/payment_handler/build-debug/test_stream")
 set_tests_properties([=[test_stream]=] PROPERTIES  _BACKTRACE_TRIPLES "/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;47;add_test;/home/arjith/dev/northpole/payment_handler/CMakeLists.txt;0;")
 add_test([=[test_types]=] "/home/arjith/dev/northpole/payment_handler/build-debug/test_types")

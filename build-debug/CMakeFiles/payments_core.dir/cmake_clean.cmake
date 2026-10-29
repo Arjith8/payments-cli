@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/payments_core.dir/src/payments/reply.cpp.o.d"
   "CMakeFiles/payments_core.dir/src/payments/runtime.cpp.o"
   "CMakeFiles/payments_core.dir/src/payments/runtime.cpp.o.d"
+  "CMakeFiles/payments_core.dir/src/payments/sharded.cpp.o"
+  "CMakeFiles/payments_core.dir/src/payments/sharded.cpp.o.d"
   "CMakeFiles/payments_core.dir/src/payments/stream.cpp.o"
   "CMakeFiles/payments_core.dir/src/payments/stream.cpp.o.d"
   "CMakeFiles/payments_core.dir/src/payments/types.cpp.o"

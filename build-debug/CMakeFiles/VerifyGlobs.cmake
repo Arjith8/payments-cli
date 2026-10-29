@@ -9,6 +9,7 @@ set(OLD_GLOB
   "/home/arjith/dev/northpole/payment_handler/tests/test_processor.cpp"
   "/home/arjith/dev/northpole/payment_handler/tests/test_queue.cpp"
   "/home/arjith/dev/northpole/payment_handler/tests/test_runtime.cpp"
+  "/home/arjith/dev/northpole/payment_handler/tests/test_sharded.cpp"
   "/home/arjith/dev/northpole/payment_handler/tests/test_stream.cpp"
   "/home/arjith/dev/northpole/payment_handler/tests/test_types.cpp"
   )
@@ -41,6 +42,7 @@ set(OLD_GLOB
   "/home/arjith/dev/northpole/payment_handler/src/payments/processor.cpp"
   "/home/arjith/dev/northpole/payment_handler/src/payments/reply.cpp"
   "/home/arjith/dev/northpole/payment_handler/src/payments/runtime.cpp"
+  "/home/arjith/dev/northpole/payment_handler/src/payments/sharded.cpp"
   "/home/arjith/dev/northpole/payment_handler/src/payments/stream.cpp"
   "/home/arjith/dev/northpole/payment_handler/src/payments/types.cpp"
   )

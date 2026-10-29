@@ -2,9 +2,10 @@
 
 namespace payments {
 
-PaymentProcessor::PaymentProcessor(DB& db, PartnerRouter& router,
-                                   MessageSender& sender)
-    : db_(db), router_(router), sender_(sender) {}
+ PaymentProcessor::PaymentProcessor(AccountStore& store,
+                                    PartnerRouter& router,
+                                    MessageSender& sender)
+    : store_(store), router_(router), sender_(sender) {}
 
 PaymentReply PaymentProcessor::process(const PaymentRequest& request) {
   auto post = [&](PaymentReply reply) {
@@ -26,10 +27,10 @@ PaymentReply PaymentProcessor::process(const PaymentRequest& request) {
   if (request.payer == request.payee) {
     return invalid("payer and payee must differ");
   }
-  if (!db_.exists(request.payer)) {
+  if (!store_.exists(request.payer)) {
     return invalid("unknown payer " + request.payer);
   }
-  if (!db_.exists(request.payee)) {
+  if (!store_.exists(request.payee)) {
     return invalid("unknown payee " + request.payee);
   }
   auto& partner = router_.pick(request);
@@ -41,10 +42,10 @@ PaymentReply PaymentProcessor::process(const PaymentRequest& request) {
                              .confirm_ref = "",
                              .reason = result.reason});
   }
-  if (!db_.try_debit(request.payer, request.amount_cents)) {
+  if (!store_.try_debit(request.payer, request.amount_cents)) {
     return invalid("insufficient balance for " + request.payer);
   }
-  db_.credit(request.payee, request.amount_cents);
+  store_.credit(request.payee, request.amount_cents);
 
   return post(PaymentReply{.request_id = request.request_id,
                            .status = TransactionStatus::approved,

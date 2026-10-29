@@ -1,13 +1,14 @@
 #pragma once
 
 #include "payments/banks.hpp"
-#include "payments/db.hpp"
 #include "payments/processor.hpp"
 #include "payments/sender.hpp"
+#include "payments/sharded.hpp"
 #include "payments/stream.hpp"
 
 #include <atomic>
 #include <cstdint>
+#include <memory>
 #include <random>
 #include <thread>
 #include <vector>
@@ -36,15 +37,16 @@ struct RuntimeOptions {
 /// Assembles the whole pipeline and owns its threads.
 ///
 ///     MockStream ──▶ inbound_ ──▶ worker(s) ──▶ PaymentProcessor
-///                                 (DB, partners)      │
-///                                          replies    ▼
-///                                          deliverer ◀── MessageSender
+///                                 (AccountStore, partners)  │
+///                                                 replies   ▼
+///                                           deliverer ◀── MessageSender
 ///
 /// `submit()` bypasses the inbound queue for synchronous, foreground
 /// requests (the CLI user's own payments).
 class Runtime {
  public:
-  explicit Runtime(DB db, RuntimeOptions options = {});
+  explicit Runtime(std::unique_ptr<AccountStore> store,
+                   RuntimeOptions options = {});
   ~Runtime();
 
   Runtime(const Runtime&) = delete;
@@ -60,7 +62,7 @@ class Runtime {
   void stop();
 
   RuntimeStats stats() const;
-  const DB& db() const { return db_; }
+  const AccountStore& store() const { return *store_; }
   std::size_t pending_replies() const { return sender_.pending(); }
   /// Set synthetic rate live; 0 stops the stream.
   void restart_synthetic(std::uint64_t rate);
@@ -70,7 +72,7 @@ class Runtime {
   void deliver_loop();
   void account(const PaymentReply& reply);
 
-  DB db_;
+  std::unique_ptr<AccountStore> store_;
   RuntimeOptions options_;
   SintaBank sinta_;
   RoRy rory_;
@@ -88,8 +90,5 @@ class Runtime {
   std::atomic<std::uint64_t> rejected_{0};
   std::atomic<std::uint64_t> failed_{0};
 };
-
-/// Default demo registry: cust_0..cust_N, all funded.
-DB make_default_db(std::size_t customer_count);
 
 }  // namespace payments

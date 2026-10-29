@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <numeric>
 #include <string>
 #include <vector>
@@ -46,12 +47,11 @@ struct Latencies {
   }
 };
 
-BenchResult bench_sequential(const std::vector<payments::PaymentRequest>& workload,
-                             payments::DB& db,
-                             payments::SintaBank& sinta, payments::RoRy& rory,
-                             payments::PartnerRouter& router,
-                             payments::MessageSender& sender) {
-  payments::PaymentProcessor processor{db, router, sender};
+BenchResult bench_sequential(
+    const std::vector<payments::PaymentRequest>& workload,
+    payments::AccountStore& store, payments::RoRy& rory,
+    payments::PartnerRouter& router, payments::MessageSender& sender) {
+  payments::PaymentProcessor processor{store, router, sender};
   Latencies latencies;
   const auto overall_start = Clock::now();
 
@@ -87,15 +87,15 @@ BenchResult bench_sequential(const std::vector<payments::PaymentRequest>& worklo
   return out;
 }
 
-BenchResult bench_threaded(std::size_t threads,
-                           const std::vector<payments::PaymentRequest>& workload,
-                           payments::DB& db, payments::RoRy& rory, payments::PartnerRouter& router,
-                           payments::MessageSender& sender) {
+BenchResult bench_threaded(
+    std::size_t threads, const std::vector<payments::PaymentRequest>& workload,
+    payments::AccountStore& store, payments::RoRy& rory,
+    payments::PartnerRouter& router, payments::MessageSender& sender) {
   payments::BlockingQueue<payments::PaymentRequest> queue;
   for (const auto& request : workload) queue.push(request);
   queue.close();
 
-  payments::PaymentProcessor processor{db, router, sender};
+  payments::PaymentProcessor processor{store, router, sender};
   std::vector<Latencies> per_thread(threads);
   std::atomic<std::uint64_t> approved{0}, rejected{0}, failed{0};
   const auto overall_start = Clock::now();
@@ -166,6 +166,7 @@ int main(int argc, char** argv) {
   std::uint64_t request_count = 20000;
   std::uint64_t seed = 42;
   std::size_t customers = 12;
+  std::size_t shards = 1;
   std::vector<std::size_t> thread_counts{1, 2, 4, 8};
 
   for (int i = 1; i < argc; ++i) {
@@ -178,6 +179,9 @@ int main(int argc, char** argv) {
       ++i;
     } else if (arg == "--seed") {
       seed = value(seed);
+      ++i;
+    } else if (arg == "--shards") {
+      shards = value(shards);
       ++i;
     } else if (arg == "--customers") {
       customers = value(customers);
@@ -199,7 +203,8 @@ int main(int argc, char** argv) {
   }
 
   std::cout << "workload: " << request_count << " requests, " << customers
-            << " customers, seed=" << seed << "\n\n";
+            << " customers, shards=" << shards << ", seed=" << seed
+            << "\n\n";
 
   std::cout << std::left << "threads" << std::right << std::setw(14)
             << "req/s" << std::setw(12) << "mean_us" << std::setw(10)
@@ -211,13 +216,18 @@ int main(int argc, char** argv) {
   for (const std::size_t threads : thread_counts) {
     if (threads > std::thread::hardware_concurrency()) continue;
 
-    std::vector<payments::Customer> benchCustomers;
-    benchCustomers.reserve(customers);
+    std::vector<payments::Customer> bench_customers;
+    bench_customers.reserve(customers);
     for (std::size_t i = 0; i < customers; ++i) {
-      benchCustomers.push_back({"cust_" + std::to_string(i),
-                                "Bench " + std::to_string(i), 1'000'000'000});
+      bench_customers.push_back({"cust_" + std::to_string(i),
+                                 "Bench " + std::to_string(i), 1'000'000'000});
     }
-    payments::DB db(std::move(benchCustomers));
+    std::unique_ptr<payments::AccountStore> store;
+    if (shards <= 1) {
+      store = std::make_unique<payments::DB>(bench_customers);
+    } else {
+      store = std::make_unique<payments::ShardedDB>(bench_customers, shards);
+    }
     payments::SintaBank sinta{seed};
     payments::RoRy rory{seed};
     payments::PartnerRouter router{rory, sinta};
@@ -225,8 +235,8 @@ int main(int argc, char** argv) {
 
     const BenchResult result =
         threads == 1
-            ? bench_sequential(workload, db, sinta, rory, router, sender)
-            : bench_threaded(threads, workload, db, rory, router, sender);
+            ? bench_sequential(workload, *store, rory, router, sender)
+            : bench_threaded(threads, workload, *store, rory, router, sender);
     print_row(result);
     sender.close();
     while (sender.take()) {

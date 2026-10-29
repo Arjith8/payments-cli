@@ -251,6 +251,19 @@ test_runtime/fast:
 .PHONY : test_runtime/fast
 
 #=============================================================================
+# Target rules for targets named test_sharded
+
+# Build rule for target.
+test_sharded: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_sharded
+.PHONY : test_sharded
+
+# fast build rule for target.
+test_sharded/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/build
+.PHONY : test_sharded/fast
+
+#=============================================================================
 # Target rules for targets named test_stream
 
 # Build rule for target.
@@ -847,6 +860,30 @@ src/payments/runtime.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/src/payments/runtime.cpp.s
 .PHONY : src/payments/runtime.cpp.s
 
+src/payments/sharded.o: src/payments/sharded.cpp.o
+.PHONY : src/payments/sharded.o
+
+# target to build an object file
+src/payments/sharded.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/src/payments/sharded.cpp.o
+.PHONY : src/payments/sharded.cpp.o
+
+src/payments/sharded.i: src/payments/sharded.cpp.i
+.PHONY : src/payments/sharded.i
+
+# target to preprocess a source file
+src/payments/sharded.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/src/payments/sharded.cpp.i
+.PHONY : src/payments/sharded.cpp.i
+
+src/payments/sharded.s: src/payments/sharded.cpp.s
+.PHONY : src/payments/sharded.s
+
+# target to generate assembly for a file
+src/payments/sharded.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/src/payments/sharded.cpp.s
+.PHONY : src/payments/sharded.cpp.s
+
 src/payments/stream.o: src/payments/stream.cpp.o
 .PHONY : src/payments/stream.o
 
@@ -905,6 +942,7 @@ tests/support/test_main.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_processor.dir/build.make CMakeFiles/test_processor.dir/tests/support/test_main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queue.dir/build.make CMakeFiles/test_queue.dir/tests/support/test_main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/tests/support/test_main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/tests/support/test_main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_stream.dir/build.make CMakeFiles/test_stream.dir/tests/support/test_main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_types.dir/build.make CMakeFiles/test_types.dir/tests/support/test_main.cpp.o
 .PHONY : tests/support/test_main.cpp.o
@@ -919,6 +957,7 @@ tests/support/test_main.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_processor.dir/build.make CMakeFiles/test_processor.dir/tests/support/test_main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queue.dir/build.make CMakeFiles/test_queue.dir/tests/support/test_main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/tests/support/test_main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/tests/support/test_main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_stream.dir/build.make CMakeFiles/test_stream.dir/tests/support/test_main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_types.dir/build.make CMakeFiles/test_types.dir/tests/support/test_main.cpp.i
 .PHONY : tests/support/test_main.cpp.i
@@ -933,6 +972,7 @@ tests/support/test_main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_processor.dir/build.make CMakeFiles/test_processor.dir/tests/support/test_main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queue.dir/build.make CMakeFiles/test_queue.dir/tests/support/test_main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/tests/support/test_main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/tests/support/test_main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_stream.dir/build.make CMakeFiles/test_stream.dir/tests/support/test_main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_types.dir/build.make CMakeFiles/test_types.dir/tests/support/test_main.cpp.s
 .PHONY : tests/support/test_main.cpp.s
@@ -1057,6 +1097,30 @@ tests/test_runtime.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/tests/test_runtime.cpp.s
 .PHONY : tests/test_runtime.cpp.s
 
+tests/test_sharded.o: tests/test_sharded.cpp.o
+.PHONY : tests/test_sharded.o
+
+# target to build an object file
+tests/test_sharded.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/tests/test_sharded.cpp.o
+.PHONY : tests/test_sharded.cpp.o
+
+tests/test_sharded.i: tests/test_sharded.cpp.i
+.PHONY : tests/test_sharded.i
+
+# target to preprocess a source file
+tests/test_sharded.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/tests/test_sharded.cpp.i
+.PHONY : tests/test_sharded.cpp.i
+
+tests/test_sharded.s: tests/test_sharded.cpp.s
+.PHONY : tests/test_sharded.s
+
+# target to generate assembly for a file
+tests/test_sharded.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sharded.dir/build.make CMakeFiles/test_sharded.dir/tests/test_sharded.cpp.s
+.PHONY : tests/test_sharded.cpp.s
+
 tests/test_stream.o: tests/test_stream.cpp.o
 .PHONY : tests/test_stream.o
 
@@ -1155,6 +1219,7 @@ help:
 	@echo "... test_processor"
 	@echo "... test_queue"
 	@echo "... test_runtime"
+	@echo "... test_sharded"
 	@echo "... test_stream"
 	@echo "... test_types"
 	@echo "... apps/bench/main.o"
@@ -1178,6 +1243,9 @@ help:
 	@echo "... src/payments/runtime.o"
 	@echo "... src/payments/runtime.i"
 	@echo "... src/payments/runtime.s"
+	@echo "... src/payments/sharded.o"
+	@echo "... src/payments/sharded.i"
+	@echo "... src/payments/sharded.s"
 	@echo "... src/payments/stream.o"
 	@echo "... src/payments/stream.i"
 	@echo "... src/payments/stream.s"
@@ -1202,6 +1270,9 @@ help:
 	@echo "... tests/test_runtime.o"
 	@echo "... tests/test_runtime.i"
 	@echo "... tests/test_runtime.s"
+	@echo "... tests/test_sharded.o"
+	@echo "... tests/test_sharded.i"
+	@echo "... tests/test_sharded.s"
 	@echo "... tests/test_stream.o"
 	@echo "... tests/test_stream.i"
 	@echo "... tests/test_stream.s"

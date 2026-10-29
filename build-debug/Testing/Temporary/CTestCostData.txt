@@ -1,8 +1,9 @@
-test_banks 2 0.0108688
-test_db 2 0.0134858
-test_processor 2 0.0181045
-test_queue 2 0.0363463
-test_runtime 2 0.0654092
-test_stream 2 0.0260343
-test_types 2 0.0125677
+test_banks 9 0.00267202
+test_db 9 0.00293799
+test_processor 9 0.00415855
+test_queue 9 0.00810524
+test_runtime 5 0.026429
+test_stream 9 0.00565689
+test_types 9 0.00244743
+test_sharded 5 0.00610467
 ---

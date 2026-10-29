@@ -44,7 +44,8 @@ int main(int argc, char** argv) {
 
   payments::RuntimeOptions options;
 
-  payments::DB db = payments::make_default_db(10);
+  std::size_t shard_count = 1;
+  std::unique_ptr<payments::AccountStore> db_store = payments::make_default_db(10);
   for (int i = 1; i < argc; ++i) {
     const std::string arg = argv[i];
     auto value = [&](std::uint64_t fallback) {
@@ -56,8 +57,11 @@ int main(int argc, char** argv) {
     } else if (arg == "--workers") {
       options.worker_count = value(options.worker_count);
       ++i;
+    } else if (arg == "--shards") {
+      shard_count = value(shard_count);
+      ++i;
     } else if (arg == "--customers") {
-      db = payments::make_default_db(value(10));
+      db_store = payments::make_default_db(value(10), shard_count);
       ++i;
     } else if (arg == "--seed") {
       options.stream_seed = value(options.stream_seed);
@@ -75,7 +79,7 @@ int main(int argc, char** argv) {
       std::ostringstream buffer;
       buffer << file.rdbuf();
       try {
-        db = payments::DB(buffer.str());
+        db_store = std::make_unique<payments::ShardedDB>(buffer.str(), shard_count);
       } catch (const std::exception& e) {
         std::cerr << "bad customers file: " << e.what() << "\n";
         return 2;
@@ -87,11 +91,11 @@ int main(int argc, char** argv) {
     }
   }
 
-  payments::Runtime runtime(std::move(db), options);
+  payments::Runtime runtime(std::move(db_store), options);
   runtime.start();
 
-  std::cout << kBanner << "database: " << runtime.db().size()
-            << " customers, workers: " << options.worker_count << "\n";
+  std::cout << kBanner << "accounts: " << runtime.store().size()
+            << ", workers: " << options.worker_count << "\n";
 
   std::string line;
   while (std::cout << "payments> ", std::cout.flush(), std::getline(std::cin, line)) {
@@ -104,8 +108,8 @@ int main(int argc, char** argv) {
       break;
     }
     if (command == "customers") {
-      for (const auto& id : runtime.db().ids()) {
-        const auto customer = runtime.db().find(id).value();
+      for (const auto& id : runtime.store().ids()) {
+        const auto customer = runtime.store().find(id).value();
         std::cout << "  " << id << "  " << customer.name << "  "
                   << customer.balance_cents << " cents\n";
       }

@@ -1,0 +1,1 @@
+/usr/lib64/ccache/c++ -g -Wl,--dependency-file=CMakeFiles/test_sharded.dir/link.d CMakeFiles/test_sharded.dir/tests/test_sharded.cpp.o CMakeFiles/test_sharded.dir/tests/support/test_main.cpp.o -o test_sharded  libpayments_core.a

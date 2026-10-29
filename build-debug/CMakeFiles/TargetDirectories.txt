@@ -4,6 +4,7 @@
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_processor.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_queue.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_runtime.dir
+/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_sharded.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_stream.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_types.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/payments-cli.dir

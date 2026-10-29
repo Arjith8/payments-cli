@@ -6,26 +6,15 @@
 
 namespace payments {
 
-DB make_default_db(std::size_t customer_count) {
-  std::vector<Customer> customers;
-  customers.reserve(customer_count);
-  for (std::size_t i = 0; i < customer_count; ++i) {
-    customers.push_back({"cust_" + std::to_string(i),
-                         "Customer " + std::to_string(static_cast<int>(i)),
-                         1'000'000});
-  }
-  return DB(std::move(customers));
-}
-
-Runtime::Runtime(DB db, RuntimeOptions options)
-    : db_(std::move(db)),
+Runtime::Runtime(std::unique_ptr<AccountStore> store, RuntimeOptions options)
+    : store_(std::move(store)),
       options_(options),
       router_(rory_, sinta_),
-      processor_(db_, router_, sender_),
-      stream_(StreamConfig{.customer_count = db_.size(),
+      processor_(*store_, router_, sender_),
+      stream_(StreamConfig{.customer_count = store_->size(),
                            .requests_per_second = 0,
                            .seed = options_.stream_seed,
-                           .customer_ids = db_.ids()}) {}
+                           .customer_ids = store_->ids()}) {}
 
 Runtime::~Runtime() { stop(); }
 
