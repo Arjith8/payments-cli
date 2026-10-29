@@ -32,6 +32,8 @@ struct StreamConfig {
   };
   /// Fixed seed gives deterministic replay; random_device in production.
   std::uint64_t seed = std::random_device{}();
+  /// Explicit customer ids; empty falls back to generating customer_count ids.
+  std::vector<std::string> customer_ids = {};
 };
 
 /// Sources of payment requests. `MockStream` implements this; real
@@ -72,7 +74,7 @@ class MockStream final : public IRequestSource {
   std::discrete_distribution<std::size_t> method_distribution_;
   std::vector<PaymentMethod> method_values_;
 
-  std::vector<std::string> customers_;
+  std::vector<std::string> customer_ids_;
   std::uniform_int_distribution<std::size_t> payer_pick_;
   std::atomic<std::uint64_t> produced_{0};
   std::atomic<bool> stopping_{false};

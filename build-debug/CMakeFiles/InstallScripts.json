@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/arjith/dev/northpole/payment_handler/build-debug/cmake_install.cmake",
+		"/home/arjith/dev/northpole/payment_handler/build-debug/_deps/nlohmann_json-build/cmake_install.cmake",
+		"/home/arjith/dev/northpole/payment_handler/build-debug/_deps/doctest-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

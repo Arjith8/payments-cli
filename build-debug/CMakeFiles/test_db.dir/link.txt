@@ -1,0 +1,1 @@
+/usr/lib64/ccache/c++ -g -Wl,--dependency-file=CMakeFiles/test_db.dir/link.d CMakeFiles/test_db.dir/tests/test_db.cpp.o CMakeFiles/test_db.dir/tests/support/test_main.cpp.o -o test_db  libpayments_core.a

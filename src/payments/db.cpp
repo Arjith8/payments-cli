@@ -31,6 +31,19 @@ DB::DB(std::vector<Customer> customers) {
 DB::DB(const std::string& json_text)
     : DB(nlohmann::json::parse(json_text).get<std::vector<Customer>>()) {}
 
+DB::DB(DB&& other) {
+  std::scoped_lock lock(other.mutex_);
+  customers_ = std::move(other.customers_);
+}
+
+DB& DB::operator=(DB&& other) {
+  if (this != &other) {
+    std::scoped_lock lock(mutex_, other.mutex_);
+    customers_ = std::move(other.customers_);
+  }
+  return *this;
+}
+
 bool DB::exists(const std::string& id) const {
   std::lock_guard lock(mutex_);
   return customers_.count(id) != 0;
@@ -65,6 +78,16 @@ void DB::credit(const std::string& id, std::int64_t amount_cents) {
 std::size_t DB::size() const {
   std::lock_guard lock(mutex_);
   return customers_.size();
+}
+
+std::vector<std::string> DB::ids() const {
+  std::lock_guard lock(mutex_);
+  std::vector<std::string> ids;
+  ids.reserve(customers_.size());
+  for (const auto& [id, customer] : customers_) {
+    ids.push_back(id);
+  }
+  return ids;
 }
 
 const Customer& DB::locate(const std::string& id) const {

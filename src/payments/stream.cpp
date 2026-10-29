@@ -27,12 +27,16 @@ std::vector<std::string> make_customer_pool(std::size_t count,
 MockStream::MockStream(StreamConfig config)
     : config_(std::move(config)),
       rng_(config_.seed),
-      customers_(detail::make_customer_pool(config_.customer_count, "cust_")) {
-  if (customers_.size() < 2) {
-    throw std::invalid_argument("StreamConfig needs at least 2 customers: "
+      customer_ids_(config_.customer_ids.empty()
+                        ? detail::make_customer_pool(config_.customer_count,
+                                                     "cust_")
+                        : config_.customer_ids) {
+  if (customer_ids_.size() < 2) {
+    throw std::invalid_argument("stream config needs at least 2 customers: "
                                 "a payment requires payer != payee");
   }
-  payer_pick_ = std::uniform_int_distribution<std::size_t>(0, customers_.size() - 1);
+
+  payer_pick_ = std::uniform_int_distribution<std::size_t>(0, customer_ids_.size() - 1);
 
   std::vector<double> weights;
   weights.reserve(config_.method_mix.size());
@@ -60,8 +64,8 @@ PaymentRequest MockStream::next() {
   request.request_id = "req-" + std::to_string(produced_.load());
   request.amount_cents = next_amount();
   request.currency = "INR";
-  request.payer = customers_[payer];
-  request.payee = customers_[payee];
+  request.payer = customer_ids_[payer];
+  request.payee = customer_ids_[payee];
   request.method = next_method();
 
   ++produced_;
@@ -100,6 +104,7 @@ void MockStream::run(BlockingQueue<PaymentRequest>& sink, std::uint64_t count,
 
 void MockStream::start_async(BlockingQueue<PaymentRequest>& sink,
                              std::uint64_t rate_limit) {
+  stopping_ = false;
   if (rate_limit > 0) {
     config_.requests_per_second = static_cast<double>(rate_limit);
   }

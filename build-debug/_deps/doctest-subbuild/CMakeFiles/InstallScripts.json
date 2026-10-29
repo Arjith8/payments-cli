@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/arjith/dev/northpole/payment_handler/build-debug/_deps/doctest-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

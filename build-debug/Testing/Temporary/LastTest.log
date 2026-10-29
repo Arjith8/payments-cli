@@ -1,0 +1,208 @@
+Start testing: Oct 29 14:43 IST
+----------------------------------------------------------
+1/7 Testing: test_banks
+1/7 Test: test_banks
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_banks"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_banks" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases:   6 |   6 passed | 0 failed | 0 skipped
+[doctest] assertions: 186 | 186 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"test_banks" end time: Oct 29 14:43 IST
+"test_banks" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/7 Testing: test_db
+2/7 Test: test_db
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_db"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_db" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases: 10 | 10 passed | 0 failed | 0 skipped
+[doctest] assertions: 25 | 25 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_db" end time: Oct 29 14:43 IST
+"test_db" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/7 Testing: test_processor
+3/7 Test: test_processor
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_processor"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_processor" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases:  5 |  5 passed | 0 failed | 0 skipped
+[doctest] assertions: 47 | 47 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_processor" end time: Oct 29 14:43 IST
+"test_processor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/7 Testing: test_queue
+4/7 Test: test_queue
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_queue"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_queue" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases: 3 | 3 passed | 0 failed | 0 skipped
+[doctest] assertions: 8 | 8 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"test_queue" end time: Oct 29 14:43 IST
+"test_queue" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/7 Testing: test_runtime
+5/7 Test: test_runtime
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_runtime"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_runtime" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+{"confirm_ref":"RoRy-1-ff7f9ed8fe","partner":"RoRy","reason":"","request_id":"m-1","status":"approved"}
+{"confirm_ref":"","partner":"SintaBank","reason":"credit-card amount exceeds SintaBank ceiling","request_id":"req-0","status":"rejected"}
+{"confirm_ref":"RoRy-1-ff7f9ed8fe","partner":"RoRy","reason":"","request_id":"req-1","status":"approved"}
+{"confirm_ref":"RoRy-2-3299589b40","partner":"RoRy","reason":"","request_id":"req-2","status":"approved"}
+{"confirm_ref":"SintaBank-1-d89b1de4e0","partner":"SintaBank","reason":"","request_id":"req-3","status":"approved"}
+{"confirm_ref":"SintaBank-2-e6d0d5f9c3","partner":"SintaBank","reason":"","request_id":"req-4","status":"approved"}
+{"confirm_ref":"SintaBank-3-7c9ec1d71a","partner":"SintaBank","reason":"","request_id":"req-6","status":"approved"}
+{"confirm_ref":"RoRy-3-34ca075294","partner":"RoRy","reason":"","request_id":"req-5","status":"approved"}
+{"confirm_ref":"RoRy-4-e2425f4be7","partner":"RoRy","reason":"","request_id":"req-7","status":"approved"}
+{"confirm_ref":"RoRy-5-202d8eaa9e","partner":"RoRy","reason":"","request_id":"req-8","status":"approved"}
+{"confirm_ref":"SintaBank-4-8039e9d230","partner":"SintaBank","reason":"","request_id":"req-9","status":"approved"}
+{"confirm_ref":"SintaBank-5-921e4127f6","partner":"SintaBank","reason":"","request_id":"req-10","status":"approved"}
+{"confirm_ref":"RoRy-6-cf68143d8b","partner":"RoRy","reason":"","request_id":"req-11","status":"approved"}
+{"confirm_ref":"SintaBank-6-f5a22f3e72","partner":"SintaBank","reason":"","request_id":"req-13","status":"approved"}
+{"confirm_ref":"RoRy-7-509c57f1a1","partner":"RoRy","reason":"","request_id":"req-12","status":"approved"}
+{"confirm_ref":"SintaBank-7-41ce502926","partner":"SintaBank","reason":"","request_id":"req-14","status":"approved"}
+{"confirm_ref":"RoRy-8-886ccdf088","partner":"RoRy","reason":"","request_id":"req-16","status":"approved"}
+{"confirm_ref":"SintaBank-8-0fd3f81ab7","partner":"SintaBank","reason":"","request_id":"req-15","status":"approved"}
+{"confirm_ref":"RoRy-9-c4991e0fa6","partner":"RoRy","reason":"","request_id":"req-17","status":"approved"}
+{"confirm_ref":"","partner":"RoRy","reason":"processing error","request_id":"req-18","status":"rejected"}
+{"confirm_ref":"SintaBank-9-747da224ba","partner":"SintaBank","reason":"","request_id":"req-19","status":"approved"}
+{"confirm_ref":"RoRy-10-6676a9eb15","partner":"RoRy","reason":"","request_id":"req-20","status":"approved"}
+{"confirm_ref":"RoRy-11-2a918a288c","partner":"RoRy","reason":"","request_id":"req-21","status":"approved"}
+{"confirm_ref":"SintaBank-10-ce832a00cb","partner":"SintaBank","reason":"","request_id":"req-22","status":"approved"}
+{"confirm_ref":"RoRy-12-43425b37b5","partner":"RoRy","reason":"","request_id":"req-23","status":"approved"}
+{"confirm_ref":"","partner":"RoRy","reason":"processing error","request_id":"req-25","status":"rejected"}
+{"confirm_ref":"RoRy-13-e6d4338a36","partner":"RoRy","reason":"","request_id":"req-24","status":"approved"}
+{"confirm_ref":"SintaBank-11-36d453d19c","partner":"SintaBank","reason":"","request_id":"req-26","status":"approved"}
+{"confirm_ref":"RoRy-14-5d2dbff3a5","partner":"RoRy","reason":"","request_id":"req-27","status":"approved"}
+{"confirm_ref":"SintaBank-12-b5b619bc5c","partner":"SintaBank","reason":"","request_id":"req-28","status":"approved"}
+{"confirm_ref":"SintaBank-14-64c9c4dcb1","partner":"SintaBank","reason":"","request_id":"req-30","status":"approved"}
+{"confirm_ref":"SintaBank-13-52c9f5172d","partner":"SintaBank","reason":"","request_id":"req-29","status":"approved"}
+{"confirm_ref":"","partner":"RoRy","reason":"processing error","request_id":"req-32","status":"rejected"}
+{"confirm_ref":"SintaBank-15-496c7c0428","partner":"SintaBank","reason":"","request_id":"req-31","status":"approved"}
+{"confirm_ref":"RoRy-15-d99d886b2a","partner":"RoRy","reason":"","request_id":"req-34","status":"approved"}
+{"confirm_ref":"RoRy-16-f4e30f424c","partner":"RoRy","reason":"","request_id":"req-33","status":"approved"}
+{"confirm_ref":"RoRy-17-787105bdeb","partner":"RoRy","reason":"","request_id":"req-35","status":"approved"}
+{"confirm_ref":"SintaBank-16-df6ae2d919","partner":"SintaBank","reason":"","request_id":"req-36","status":"approved"}
+{"confirm_ref":"SintaBank-17-d5a5b5bf55","partner":"SintaBank","reason":"","request_id":"req-37","status":"approved"}
+{"confirm_ref":"SintaBank-18-acd0066173","partner":"SintaBank","reason":"","request_id":"req-38","status":"approved"}
+{"confirm_ref":"SintaBank-19-3fafb4b412","partner":"SintaBank","reason":"","request_id":"req-39","status":"approved"}
+{"confirm_ref":"","partner":"SintaBank","reason":"credit-card amount exceeds SintaBank ceiling","request_id":"req-40","status":"rejected"}
+{"confirm_ref":"RoRy-18-ddc2ef4c8f","partner":"RoRy","reason":"","request_id":"req-41","status":"approved"}
+{"confirm_ref":"","partner":"SintaBank","reason":"credit-card amount exceeds SintaBank ceiling","request_id":"req-42","status":"rejected"}
+{"confirm_ref":"SintaBank-20-34b13ce6af","partner":"SintaBank","reason":"","request_id":"req-43","status":"approved"}
+{"confirm_ref":"SintaBank-21-033df672b6","partner":"SintaBank","reason":"","request_id":"req-44","status":"approved"}
+{"confirm_ref":"RoRy-19-b083058d54","partner":"RoRy","reason":"","request_id":"req-45","status":"approved"}
+{"confirm_ref":"","partner":"SintaBank","reason":"credit-card amount exceeds SintaBank ceiling","request_id":"req-46","status":"rejected"}
+{"confirm_ref":"RoRy-20-27d8ed15df","partner":"RoRy","reason":"","request_id":"req-47","status":"approved"}
+{"confirm_ref":"SintaBank-22-c609a35e4d","partner":"SintaBank","reason":"","request_id":"req-48","status":"approved"}
+{"confirm_ref":"SintaBank-23-126227fa30","partner":"SintaBank","reason":"","request_id":"req-49","status":"approved"}
+{"confirm_ref":"RoRy-1-ff7f9ed8fe","partner":"RoRy","reason":"","request_id":"req-0","status":"approved"}
+{"confirm_ref":"SintaBank-1-d89b1de4e0","partner":"SintaBank","reason":"","request_id":"req-1","status":"approved"}
+{"confirm_ref":"SintaBank-2-e6d0d5f9c3","partner":"SintaBank","reason":"","request_id":"req-2","status":"approved"}
+{"confirm_ref":"RoRy-2-3299589b40","partner":"RoRy","reason":"","request_id":"req-3","status":"approved"}
+{"confirm_ref":"","partner":"SintaBank","reason":"credit-card amount exceeds SintaBank ceiling","request_id":"req-4","status":"rejected"}
+{"confirm_ref":"RoRy-3-34ca075294","partner":"RoRy","reason":"","request_id":"req-5","status":"approved"}
+{"confirm_ref":"SintaBank-3-7c9ec1d71a","partner":"SintaBank","reason":"","request_id":"req-6","status":"approved"}
+===============================================================================
+[doctest] test cases:  4 |  4 passed | 0 failed | 0 skipped
+[doctest] assertions: 11 | 11 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Passed.
+"test_runtime" end time: Oct 29 14:43 IST
+"test_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/7 Testing: test_stream
+6/7 Test: test_stream
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_stream"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_stream" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases:   8 |   8 passed | 0 failed | 0 skipped
+[doctest] assertions: 253 | 253 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_stream" end time: Oct 29 14:43 IST
+"test_stream" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/7 Testing: test_types
+7/7 Test: test_types
+Command: "/home/arjith/dev/northpole/payment_handler/build-debug/test_types"
+Directory: /home/arjith/dev/northpole/payment_handler/build-debug
+"test_types" start time: Oct 29 14:43 IST
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.12"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases:  5 |  5 passed | 0 failed | 0 skipped
+[doctest] assertions: 14 | 14 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"test_types" end time: Oct 29 14:43 IST
+"test_types" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 29 14:43 IST

@@ -1,0 +1,1 @@
+/usr/lib64/ccache/c++ -g -Wl,--dependency-file=CMakeFiles/payments-cli.dir/link.d "CMakeFiles/payments-cli.dir/apps/cli/main.cpp.o" -o payments-cli  libpayments_core.a

@@ -21,7 +21,10 @@ threaded performance statistics.
       (`processor.hpp`: `PaymentProcessor` full request flow;
       `reply.hpp`: statuses + JSON replies; `sender.hpp`: `MessageSender`
       outbound queue, delivery logic intentionally out of scope)
-- [ ] Phase 5 — `payments-cli`: interactive transactions + synthetic traffic
+- [x] Phase 5 — `payments-cli`: interactive transactions + synthetic traffic
+      (`runtime.hpp`: assembles DB/stream/workers/sender, foreground
+      `submit()` runs next to the detached generator; commands: `pay`,
+      `customers`, `rate`, `stop`, `stats`, `quit`)
 - [ ] Phase 6 — Threaded worker pool vs single-threaded flow throughput/latency stats
 
 ## Dependencies
@@ -41,6 +44,17 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
 ctest --test-dir build --output-on-failure
 ```
+
+## CLI
+
+```bash
+./build/payments-cli --workers 4 --rate 50     # 4 workers, 50 synthetic req/s
+./build/payments-cli --customers 25 --seed 42  # bigger registry, replayable stream
+```
+
+Interactive commands: `pay <payer> <payee> <amount> <method>`,
+`customers`, `rate <rps>` (0 = stop stream), `stats`, `quit`.
+Synthetic requests post their JSON replies continuously; `quit` drains.
 
 ## Layout
 

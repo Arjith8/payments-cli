@@ -31,6 +31,11 @@ class DB {
   /// Parse from JSON text and delegate.
   explicit DB(const std::string& json_text);
 
+  DB(DB&& other);
+  DB& operator=(DB&& other);
+  DB(const DB&) = delete;
+  DB& operator=(const DB&) = delete;
+
   bool exists(const std::string& id) const;
   std::optional<Customer> find(const std::string& id) const;
 
@@ -42,6 +47,9 @@ class DB {
   void credit(const std::string& id, std::int64_t amount_cents);
 
   std::size_t size() const;
+
+  /// All registered customer ids, in id order.
+  std::vector<std::string> ids() const;
 
  private:
   const Customer& locate(const std::string& id) const;
