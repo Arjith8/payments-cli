@@ -71,7 +71,7 @@ store) is purely a construction-time choice.
 ## Quick start
 
 ```bash
-git clone <repo-url> && cd payment_handler
+git clone https://github.com/Arjith8/payments-cli.git && cd payment_handler
 
 # build (defaults to Release)
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
