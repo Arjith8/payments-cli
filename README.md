@@ -27,6 +27,10 @@ threaded performance statistics.
       `customers`, `rate`, `stop`, `stats`, `quit`)
 - [ ] Phase 6 — Threaded worker pool vs single-threaded flow throughput/latency stats
 
+- [x] Phase 6 — Single vs multi-threaded throughput/latency stats
+      (`payments-bench`: identical seeded workload per run, per-request
+      latency percentiles, ledger consistency)
+
 ## Dependencies
 
 Deliberately minimal — two vendored third-party libraries fetched by CMake
@@ -55,6 +59,37 @@ ctest --test-dir build --output-on-failure
 Interactive commands: `pay <payer> <payee> <amount> <method>`,
 `customers`, `rate <rps>` (0 = stop stream), `stats`, `quit`.
 Synthetic requests post their JSON replies continuously; `quit` drains.
+
+## Benchmark
+
+`payments-bench` drives the *same* seeded workload through either a single
+threaded loop or K competing worker threads (Debug/unoptimized build unless
+you rebuild with Release):
+
+```bash
+cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
+cmake --build build-debug -jK
+./build-debug/payments-bench -n 20000        # --seed, --customers, -n
+```
+
+Example results (Debug build, 20 000 requests, 12 customers, seed 42,
+8-core machine):
+
+```
+threads         req/s     mean_us    p50_us    p95_us    p99_us      max_us   approved  rejected
+--------------------------------------------------------------------------------------------------------------
+       1         25803        37.0      33.7      65.6      90.1       331.7      18029       1971
+       2         20753        81.2      60.5     189.0     292.3      1262.6      18029       1971
+       4         21345       163.1     127.2     397.5     669.4      3108.4      18029       1971
+       8         23180       310.1     245.4     751.3    1338.7      5778.7      18029       1971
+```
+
+Reading it: approve/reject counts are identical across all runs (deterministic
+workload) so the comparison is apples-to-apples. Throughput stays flat while
+per-request latency was grows roughly linearly with worker count — the shared
+`DB` mutex and the partner lock serialise the hot path, so this unoptimized
+build shows contention-limited concurrency, not scaling. Under Release the
+absolute numbers shift but the shape of the story is the same.
 
 ## Layout
 

@@ -47,10 +47,13 @@ foreach(test_file ${PAYMENTS_TESTS})
   add_test(NAME ${test_name} COMMAND ${test_name})
 endforeach()
 
-# CLI application -----------------------------------------------------------
+# Applications --------------------------------------------------------------
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/apps)
   add_executable(payments-cli apps/cli/main.cpp)
   target_link_libraries(payments-cli PRIVATE payments_core)
+
+  add_executable(payments-bench apps/bench/main.cpp)
+  target_link_libraries(payments-bench PRIVATE payments_core)
 endif()
 
 include(CTest)

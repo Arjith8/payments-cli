@@ -62,6 +62,16 @@ bool DB::has_balance(const std::string& id, std::int64_t amount_cents) const {
   return it != customers_.end() && it->second.balance_cents >= amount_cents;
 }
 
+bool DB::try_debit(const std::string& id, std::int64_t amount_cents) {
+  std::lock_guard lock(mutex_);
+  auto it = customers_.find(id);
+  if (it == customers_.end() || it->second.balance_cents < amount_cents) {
+    return false;
+  }
+  it->second.balance_cents -= amount_cents;
+  return true;
+}
+
 void DB::debit(const std::string& id, std::int64_t amount_cents) {
   std::lock_guard lock(mutex_);
   if (locate(id).balance_cents < amount_cents) {

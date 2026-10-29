@@ -72,6 +72,7 @@ all: CMakeFiles/test_runtime.dir/all
 all: CMakeFiles/test_stream.dir/all
 all: CMakeFiles/test_types.dir/all
 all: CMakeFiles/payments-cli.dir/all
+all: CMakeFiles/payments-bench.dir/all
 all: _deps/nlohmann_json-build/all
 all: _deps/doctest-build/all
 .PHONY : all
@@ -86,6 +87,7 @@ codegen: CMakeFiles/test_runtime.dir/codegen
 codegen: CMakeFiles/test_stream.dir/codegen
 codegen: CMakeFiles/test_types.dir/codegen
 codegen: CMakeFiles/payments-cli.dir/codegen
+codegen: CMakeFiles/payments-bench.dir/codegen
 codegen: _deps/nlohmann_json-build/codegen
 codegen: _deps/doctest-build/codegen
 .PHONY : codegen
@@ -105,6 +107,7 @@ clean: CMakeFiles/test_runtime.dir/clean
 clean: CMakeFiles/test_stream.dir/clean
 clean: CMakeFiles/test_types.dir/clean
 clean: CMakeFiles/payments-cli.dir/clean
+clean: CMakeFiles/payments-bench.dir/clean
 clean: CMakeFiles/Experimental.dir/clean
 clean: CMakeFiles/Nightly.dir/clean
 clean: CMakeFiles/Continuous.dir/clean
@@ -182,7 +185,7 @@ _deps/nlohmann_json-build/clean:
 CMakeFiles/payments_core.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=5,6,7,8,9,10,11,12 "Built target payments_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=7,8,9,10,11,12,13,14 "Built target payments_core"
 .PHONY : CMakeFiles/payments_core.dir/all
 
 # Build rule for subdir invocation for target.
@@ -199,7 +202,7 @@ payments_core: CMakeFiles/payments_core.dir/rule
 # codegen rule for target.
 CMakeFiles/payments_core.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments_core.dir/build.make CMakeFiles/payments_core.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=5,6,7,8,9,10,11,12 "Finished codegen for target payments_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=7,8,9,10,11,12,13,14 "Finished codegen for target payments_core"
 .PHONY : CMakeFiles/payments_core.dir/codegen
 
 # clean rule for target.
@@ -214,7 +217,7 @@ CMakeFiles/payments_core.dir/clean:
 CMakeFiles/test_banks.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_banks.dir/build.make CMakeFiles/test_banks.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_banks.dir/build.make CMakeFiles/test_banks.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=13,14,15 "Built target test_banks"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=15,16,17 "Built target test_banks"
 .PHONY : CMakeFiles/test_banks.dir/all
 
 # Build rule for subdir invocation for target.
@@ -231,7 +234,7 @@ test_banks: CMakeFiles/test_banks.dir/rule
 # codegen rule for target.
 CMakeFiles/test_banks.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_banks.dir/build.make CMakeFiles/test_banks.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=13,14,15 "Finished codegen for target test_banks"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=15,16,17 "Finished codegen for target test_banks"
 .PHONY : CMakeFiles/test_banks.dir/codegen
 
 # clean rule for target.
@@ -246,7 +249,7 @@ CMakeFiles/test_banks.dir/clean:
 CMakeFiles/test_db.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_db.dir/build.make CMakeFiles/test_db.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_db.dir/build.make CMakeFiles/test_db.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=16,17,18 "Built target test_db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=18,19,20 "Built target test_db"
 .PHONY : CMakeFiles/test_db.dir/all
 
 # Build rule for subdir invocation for target.
@@ -263,7 +266,7 @@ test_db: CMakeFiles/test_db.dir/rule
 # codegen rule for target.
 CMakeFiles/test_db.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_db.dir/build.make CMakeFiles/test_db.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=16,17,18 "Finished codegen for target test_db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=18,19,20 "Finished codegen for target test_db"
 .PHONY : CMakeFiles/test_db.dir/codegen
 
 # clean rule for target.
@@ -278,7 +281,7 @@ CMakeFiles/test_db.dir/clean:
 CMakeFiles/test_processor.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_processor.dir/build.make CMakeFiles/test_processor.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_processor.dir/build.make CMakeFiles/test_processor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=19,20,21 "Built target test_processor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=21,22,23 "Built target test_processor"
 .PHONY : CMakeFiles/test_processor.dir/all
 
 # Build rule for subdir invocation for target.
@@ -295,7 +298,7 @@ test_processor: CMakeFiles/test_processor.dir/rule
 # codegen rule for target.
 CMakeFiles/test_processor.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_processor.dir/build.make CMakeFiles/test_processor.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=19,20,21 "Finished codegen for target test_processor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=21,22,23 "Finished codegen for target test_processor"
 .PHONY : CMakeFiles/test_processor.dir/codegen
 
 # clean rule for target.
@@ -310,7 +313,7 @@ CMakeFiles/test_processor.dir/clean:
 CMakeFiles/test_queue.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queue.dir/build.make CMakeFiles/test_queue.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queue.dir/build.make CMakeFiles/test_queue.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=22,23,24 "Built target test_queue"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=24,25,26 "Built target test_queue"
 .PHONY : CMakeFiles/test_queue.dir/all
 
 # Build rule for subdir invocation for target.
@@ -327,7 +330,7 @@ test_queue: CMakeFiles/test_queue.dir/rule
 # codegen rule for target.
 CMakeFiles/test_queue.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queue.dir/build.make CMakeFiles/test_queue.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=22,23,24 "Finished codegen for target test_queue"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=24,25,26 "Finished codegen for target test_queue"
 .PHONY : CMakeFiles/test_queue.dir/codegen
 
 # clean rule for target.
@@ -342,7 +345,7 @@ CMakeFiles/test_queue.dir/clean:
 CMakeFiles/test_runtime.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=25,26,27 "Built target test_runtime"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=27,28,29 "Built target test_runtime"
 .PHONY : CMakeFiles/test_runtime.dir/all
 
 # Build rule for subdir invocation for target.
@@ -359,7 +362,7 @@ test_runtime: CMakeFiles/test_runtime.dir/rule
 # codegen rule for target.
 CMakeFiles/test_runtime.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runtime.dir/build.make CMakeFiles/test_runtime.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=25,26,27 "Finished codegen for target test_runtime"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=27,28,29 "Finished codegen for target test_runtime"
 .PHONY : CMakeFiles/test_runtime.dir/codegen
 
 # clean rule for target.
@@ -374,7 +377,7 @@ CMakeFiles/test_runtime.dir/clean:
 CMakeFiles/test_stream.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_stream.dir/build.make CMakeFiles/test_stream.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_stream.dir/build.make CMakeFiles/test_stream.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=28,29,30 "Built target test_stream"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=30,31,32 "Built target test_stream"
 .PHONY : CMakeFiles/test_stream.dir/all
 
 # Build rule for subdir invocation for target.
@@ -391,7 +394,7 @@ test_stream: CMakeFiles/test_stream.dir/rule
 # codegen rule for target.
 CMakeFiles/test_stream.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_stream.dir/build.make CMakeFiles/test_stream.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=28,29,30 "Finished codegen for target test_stream"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=30,31,32 "Finished codegen for target test_stream"
 .PHONY : CMakeFiles/test_stream.dir/codegen
 
 # clean rule for target.
@@ -406,7 +409,7 @@ CMakeFiles/test_stream.dir/clean:
 CMakeFiles/test_types.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_types.dir/build.make CMakeFiles/test_types.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_types.dir/build.make CMakeFiles/test_types.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=31,32,33 "Built target test_types"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=33,34,35 "Built target test_types"
 .PHONY : CMakeFiles/test_types.dir/all
 
 # Build rule for subdir invocation for target.
@@ -423,7 +426,7 @@ test_types: CMakeFiles/test_types.dir/rule
 # codegen rule for target.
 CMakeFiles/test_types.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_types.dir/build.make CMakeFiles/test_types.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=31,32,33 "Finished codegen for target test_types"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=33,34,35 "Finished codegen for target test_types"
 .PHONY : CMakeFiles/test_types.dir/codegen
 
 # clean rule for target.
@@ -438,7 +441,7 @@ CMakeFiles/test_types.dir/clean:
 CMakeFiles/payments-cli.dir/all: CMakeFiles/payments_core.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-cli.dir/build.make CMakeFiles/payments-cli.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-cli.dir/build.make CMakeFiles/payments-cli.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=3,4 "Built target payments-cli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=5,6 "Built target payments-cli"
 .PHONY : CMakeFiles/payments-cli.dir/all
 
 # Build rule for subdir invocation for target.
@@ -455,13 +458,45 @@ payments-cli: CMakeFiles/payments-cli.dir/rule
 # codegen rule for target.
 CMakeFiles/payments-cli.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-cli.dir/build.make CMakeFiles/payments-cli.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=3,4 "Finished codegen for target payments-cli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=5,6 "Finished codegen for target payments-cli"
 .PHONY : CMakeFiles/payments-cli.dir/codegen
 
 # clean rule for target.
 CMakeFiles/payments-cli.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-cli.dir/build.make CMakeFiles/payments-cli.dir/clean
 .PHONY : CMakeFiles/payments-cli.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/payments-bench.dir
+
+# All Build rule for target.
+CMakeFiles/payments-bench.dir/all: CMakeFiles/payments_core.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=3,4 "Built target payments-bench"
+.PHONY : CMakeFiles/payments-bench.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/payments-bench.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/payments-bench.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/payments-bench.dir/rule
+
+# Convenience name for target.
+payments-bench: CMakeFiles/payments-bench.dir/rule
+.PHONY : payments-bench
+
+# codegen rule for target.
+CMakeFiles/payments-bench.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles --progress-num=3,4 "Finished codegen for target payments-bench"
+.PHONY : CMakeFiles/payments-bench.dir/codegen
+
+# clean rule for target.
+CMakeFiles/payments-bench.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/clean
+.PHONY : CMakeFiles/payments-bench.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/Experimental.dir

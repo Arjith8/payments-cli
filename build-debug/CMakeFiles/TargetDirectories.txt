@@ -7,6 +7,7 @@
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_stream.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/test_types.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/payments-cli.dir
+/home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/payments-bench.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/Experimental.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/Nightly.dir
 /home/arjith/dev/northpole/payment_handler/build-debug/CMakeFiles/Continuous.dir

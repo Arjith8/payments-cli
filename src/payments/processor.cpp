@@ -32,12 +32,8 @@ PaymentReply PaymentProcessor::process(const PaymentRequest& request) {
   if (!db_.exists(request.payee)) {
     return invalid("unknown payee " + request.payee);
   }
-  if (!db_.has_balance(request.payer, request.amount_cents)) {
-    return invalid("insufficient balance for " + request.payer);
-  }
-
   auto& partner = router_.pick(request);
-  ChargeResult result = partner.charge(request);
+  const ChargeResult result = partner.charge(request);
   if (!result.approved) {
     return post(PaymentReply{.request_id = request.request_id,
                              .status = TransactionStatus::rejected,
@@ -45,8 +41,9 @@ PaymentReply PaymentProcessor::process(const PaymentRequest& request) {
                              .confirm_ref = "",
                              .reason = result.reason});
   }
-
-  db_.debit(request.payer, request.amount_cents);
+  if (!db_.try_debit(request.payer, request.amount_cents)) {
+    return invalid("insufficient balance for " + request.payer);
+  }
   db_.credit(request.payee, request.amount_cents);
 
   return post(PaymentReply{.request_id = request.request_id,

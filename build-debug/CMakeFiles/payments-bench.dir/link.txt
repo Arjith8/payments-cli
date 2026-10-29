@@ -1,0 +1,1 @@
+/usr/lib64/ccache/c++ -g -Wl,--dependency-file=CMakeFiles/payments-bench.dir/link.d "CMakeFiles/payments-bench.dir/apps/bench/main.cpp.o" -o payments-bench  libpayments_core.a

@@ -290,6 +290,19 @@ payments-cli/fast:
 .PHONY : payments-cli/fast
 
 #=============================================================================
+# Target rules for targets named payments-bench
+
+# Build rule for target.
+payments-bench: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 payments-bench
+.PHONY : payments-bench
+
+# fast build rule for target.
+payments-bench/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/build
+.PHONY : payments-bench/fast
+
+#=============================================================================
 # Target rules for targets named Experimental
 
 # Build rule for target.
@@ -665,6 +678,30 @@ doctest_with_main: cmake_check_build_system
 doctest_with_main/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/doctest-build/CMakeFiles/doctest_with_main.dir/build.make _deps/doctest-build/CMakeFiles/doctest_with_main.dir/build
 .PHONY : doctest_with_main/fast
+
+apps/bench/main.o: apps/bench/main.cpp.o
+.PHONY : apps/bench/main.o
+
+# target to build an object file
+apps/bench/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/apps/bench/main.cpp.o
+.PHONY : apps/bench/main.cpp.o
+
+apps/bench/main.i: apps/bench/main.cpp.i
+.PHONY : apps/bench/main.i
+
+# target to preprocess a source file
+apps/bench/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/apps/bench/main.cpp.i
+.PHONY : apps/bench/main.cpp.i
+
+apps/bench/main.s: apps/bench/main.cpp.s
+.PHONY : apps/bench/main.s
+
+# target to generate assembly for a file
+apps/bench/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/payments-bench.dir/build.make CMakeFiles/payments-bench.dir/apps/bench/main.cpp.s
+.PHONY : apps/bench/main.cpp.s
 
 apps/cli/main.o: apps/cli/main.cpp.o
 .PHONY : apps/cli/main.o
@@ -1110,6 +1147,7 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... doctest_with_main"
+	@echo "... payments-bench"
 	@echo "... payments-cli"
 	@echo "... payments_core"
 	@echo "... test_banks"
@@ -1119,6 +1157,9 @@ help:
 	@echo "... test_runtime"
 	@echo "... test_stream"
 	@echo "... test_types"
+	@echo "... apps/bench/main.o"
+	@echo "... apps/bench/main.i"
+	@echo "... apps/bench/main.s"
 	@echo "... apps/cli/main.o"
 	@echo "... apps/cli/main.i"
 	@echo "... apps/cli/main.s"

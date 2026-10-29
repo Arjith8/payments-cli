@@ -41,6 +41,10 @@ class DB {
 
   bool has_balance(const std::string& id, std::int64_t amount_cents) const;
 
+  /// Atomically checks and removes amount; false when unknown id or the
+  /// balance would go negative.
+  bool try_debit(const std::string& id, std::int64_t amount_cents);
+
   /// Both throw out_of_range for unknown ids; debit additionally throws
   /// invalid_argument when the balance would go negative.
   void debit(const std::string& id, std::int64_t amount_cents);
