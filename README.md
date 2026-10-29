@@ -17,7 +17,10 @@ threaded performance statistics.
 - [x] Phase 3 — Banking partners with confirmation
       (`partner.hpp`, `banks.hpp`: `IBankingPartner`, `BankingPartner` base,
       `SintaBank` / `RoRy` policies, method-aware `PartnerRouter`)
-- [ ] Phase 4 — Transaction engine + message-sender queue (interface only)
+- [x] Phase 4 — Transaction engine + message sender queue
+      (`processor.hpp`: `PaymentProcessor` full request flow;
+      `reply.hpp`: statuses + JSON replies; `sender.hpp`: `MessageSender`
+      outbound queue, delivery logic intentionally out of scope)
 - [ ] Phase 5 — `payments-cli`: interactive transactions + synthetic traffic
 - [ ] Phase 6 — Threaded worker pool vs single-threaded flow throughput/latency stats
 

@@ -18,7 +18,7 @@ std::string mint_reference(const std::string& prefix, std::mt19937& rng) {
 
 }  // namespace detail
 
-ChargeResult SintaBank::charge(const PaymentRequest& request) {
+ChargeResult SintaBank::charge_locked(const PaymentRequest& request) {
   if (request.method == PaymentMethod::wallet) {
     return {.partner = name(),
             .approved = false,
@@ -39,7 +39,7 @@ ChargeResult SintaBank::charge(const PaymentRequest& request) {
   return {.partner = name(), .confirm_ref = make_ref(), .approved = true};
 }
 
-ChargeResult RoRy::charge(const PaymentRequest& request) {
+ChargeResult RoRy::charge_locked(const PaymentRequest& request) {
   if (coin(0.08)) {
     return {.partner = name(), .approved = false, .reason = "processing error"};
   }
